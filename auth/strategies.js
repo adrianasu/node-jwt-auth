@@ -30,6 +30,7 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
           message: 'Incorrect username or password'
         });
       }
+      // success
       return callback(null, user);
     })
     .catch(err => {

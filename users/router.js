@@ -103,6 +103,8 @@ router.post('/', jsonParser, (req, res) => {
     .then(count => {
       if (count > 0) {
         // There is an existing user with the same username
+        // this error object will be handled in the catch block
+        // at the bottom of the promise chain
         return Promise.reject({
           code: 422,
           reason: 'ValidationError',
@@ -111,6 +113,8 @@ router.post('/', jsonParser, (req, res) => {
         });
       }
       // If there is no existing user, hash the password
+      // this .hashPassword static method is created on
+      // user/models.js
       return User.hashPassword(password);
     })
     .then(hash => {

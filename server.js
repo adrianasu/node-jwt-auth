@@ -35,12 +35,15 @@ app.use(function (req, res, next) {
   next();
 });
 
+// register the authentication strategy to use it in a route
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
 app.use('/api/users/', usersRouter);
 app.use('/api/auth/', authRouter);
 
+// middleware function that uses the jwt strategy to protect
+// the endpoint 
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 // A protected endpoint which needs a valid JWT to access it
